@@ -1,16 +1,32 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Search, CheckCircle, XCircle, HelpCircle } from 'lucide-react';
 import { api } from '../services/api';
+
+const DEMO_ARTICLES = [
+  {
+    id: 'genuine',
+    type: 'genuine',
+    title: 'UN calls for humanitarian pause in Yemen as fighting escalates',
+    text: "The United Nations called for a humanitarian pause in Yemen after fighting escalated in the capital Sana'a. The organization urged all parties to protect civilians, allow medical assistance to reach affected communities, and ensure access to food and water. Relief coordinators expressed concern about civilian casualties and called for immediate measures to protect vulnerable populations.",
+  },
+  {
+    id: 'fake',
+    type: 'fake',
+    title: 'UNBELIEVABLE! CLINTON FOUNDATION RECEIVED MILLIONS IN CASH FROM ALIEN LOBBY',
+    text: 'In a shocking turn of events, a secret leaked document has revealed that the Clinton Foundation received millions of dollars in cash payments from a mysterious alien lobby group claiming to represent extraterrestrial interests. According to the document, the payments were made during the height of the presidential campaign. This shocking discovery has left the public stunned, and mainstream media is refusing to cover the massive cover-up. Investigators are calling it the biggest scandal in modern history. SHARE this article everywhere before it gets taken down by the elite!',
+  },
+  {
+    id: 'ambiguous',
+    type: 'ambiguous',
+    title: 'Scientists report unexpected changes in global weather patterns',
+    text: 'A new report describes changes in weather patterns observed across several regions. Researchers say the findings require further study to understand the causes and possible long-term effects. Some experts believe the changes may be connected to broader environmental trends, while others say more evidence is needed before reaching a clear conclusion.',
+  },
+];
 
 export default function NewsInput({ onResult, onLoading, onError }) {
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
-  const [samples, setSamples] = useState([]);
   const [submitting, setSubmitting] = useState(false);
-
-  useEffect(() => {
-    api.getSampleArticles().then(setSamples).catch(() => {});
-  }, []);
 
   const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
   const charCount = text.length;
@@ -48,7 +64,7 @@ export default function NewsInput({ onResult, onLoading, onError }) {
   };
 
   return (
-    <div className="glass-card fade-in" style={{ maxWidth: 720, margin: '0 auto' }}>
+    <div className="glass-card analyze-input-card fade-in" style={{ maxWidth: 720, margin: '0 auto' }}>
       <h2 style={{
         fontSize: '1.3rem',
         fontWeight: 700,
@@ -96,30 +112,28 @@ export default function NewsInput({ onResult, onLoading, onError }) {
         <button className="btn btn-secondary" onClick={handleClear}>Clear</button>
       </div>
 
-      {/* Sample articles */}
-      {samples.length > 0 && (
-        <div style={{ marginTop: 24, borderTop: '1px solid var(--border-color)', paddingTop: 16 }}>
+      {/* Demo articles */}
+      <div className="demo-section" style={{ marginTop: 24, borderTop: '1px solid var(--border-color)', paddingTop: 16 }}>
           <p style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 10 }}>
             Try a Demo Example
           </p>
-          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-            {samples.map(s => (
+          <div className="demo-buttons" style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            {DEMO_ARTICLES.map(s => (
               <button
                 key={s.id}
                 className="btn btn-secondary"
                 onClick={() => handleTryExample(s)}
                 style={{ fontSize: '0.78rem', padding: '6px 14px' }}
               >
-                {s.label.includes('GENUINE') ? <CheckCircle size={14} style={{ color: 'var(--accent-genuine)' }} /> : s.label.includes('FAKE') ? <XCircle size={14} style={{ color: 'var(--accent-fake)' }} /> : <HelpCircle size={14} style={{ color: 'var(--accent-ambiguous)' }} />}{' '}
-                {s.label.includes('GENUINE') ? 'Genuine Demo' : s.label.includes('FAKE') ? 'Fake Demo' : 'Ambiguous Demo'}
+                {s.type === 'genuine' ? <CheckCircle size={14} style={{ color: 'var(--accent-genuine)' }} /> : s.type === 'fake' ? <XCircle size={14} style={{ color: 'var(--accent-fake)' }} /> : <HelpCircle size={14} style={{ color: 'var(--accent-ambiguous)' }} />}{' '}
+                {s.type === 'genuine' ? 'Genuine Demo' : s.type === 'fake' ? 'Fake Demo' : 'Ambiguous Demo'}
               </button>
             ))}
           </div>
           <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontStyle: 'italic', marginTop: 8 }}>
             DEMO ARTICLES — FOR SYSTEM TESTING ONLY
           </p>
-        </div>
-      )}
+      </div>
     </div>
   );
 }

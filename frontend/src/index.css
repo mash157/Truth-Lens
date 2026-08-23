@@ -245,6 +245,15 @@ button:focus-visible {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
+  min-width: 0;
+}
+
+.analyze-input-card {
+  min-width: 0;
+}
+
+.demo-buttons {
+  min-width: 0;
 }
 
 .grid-2 {
@@ -262,6 +271,20 @@ button:focus-visible {
 @media (max-width: 768px) {
   .grid-2, .grid-3 {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .analyze-input-card {
+    padding: 16px;
+  }
+
+  .demo-buttons .btn {
+    flex: 1 1 auto;
   }
 }
 
