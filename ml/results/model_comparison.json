@@ -1,0 +1,23 @@
+[
+    {
+        "Model": "Logistic Regression",
+        "Accuracy": 0.958,
+        "Precision": 0.9522,
+        "Recall": 0.9555,
+        "F1_Score": 0.9538
+    },
+    {
+        "Model": "Multinomial Naive Bayes",
+        "Accuracy": 0.8592,
+        "Precision": 0.8239,
+        "Recall": 0.877,
+        "F1_Score": 0.8496
+    },
+    {
+        "Model": "Linear SVM",
+        "Accuracy": 0.9672,
+        "Precision": 0.9651,
+        "Recall": 0.9626,
+        "F1_Score": 0.9638
+    }
+]

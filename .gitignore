@@ -1,70 +1,27 @@
-# Byte-compiled / optimized / DLL files
+# Python cache
 __pycache__/
 *.py[cod]
-*$py.class
 
-# C extensions
-*.so
-
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-
-# PyInstaller
-#  Usually these files are written by a python script when a packaging
-#  process starts and contains information about the setup.
-*.manifest
-*.spec
-
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nosenv/
-.pytest_cache/
-.mypy_cache/
-.benchmarks/
-
-# Environments
-.env
-.venv
-env/
+# Python environments
+.venv/
 venv/
+env/
 ENV/
-env.bak/
-venv.bak/
 
-# Node modules
-node_modules/
-dist-frontend/
+# Environment/secrets
+.env
+.env.*
+!.env.example
 
-# Local configuration files
+# IDE
 .vscode/
 .idea/
 
-# Application Specific Artifacts
-dataset/raw/*.csv
-dataset/processed/*.csv
-ml/artifacts/*.joblib
-ml/results/*.png
-ml/results/*.json
-ml/results/*.csv
-backend/app/ml/artifacts/
+# Node
+node_modules/
+
+# Frontend build
+frontend/dist/
+
+# Temporary files
+*.log
