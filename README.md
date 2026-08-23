@@ -1,3 +1,6 @@
+TruthLens_README_complete_updated.md
+
+
 # TruthLens
 
 ### AI-Based Fake News Classification & Explainable Analysis System
@@ -30,11 +33,11 @@ TruthLens is **not** an independent fact-checking system. It predicts based on p
 
 - Three trained classifiers:
 
-  - Logistic Regression
+  - Logistic Regression
 
-  - Multinomial Naive Bayes
+  - Multinomial Naive Bayes
 
-  - Linear SVM
+  - Linear SVM
 
 - Model comparison with Accuracy, Precision, Recall, and F1-Score
 
@@ -66,31 +69,31 @@ TruthLens is **not** an independent fact-checking system. It predicts based on p
 
 News Article
 
-      ↓
+      ↓
 
 Text Cleaning
 
-      ↓
+      ↓
 
 Title + Body Combination
 
-      ↓
+      ↓
 
 TF-IDF Vectorization
 
-      ↓
+      ↓
 
 Machine Learning Classification
 
-      ↓
+      ↓
 
 Confidence Calculation
 
-      ↓
+      ↓
 
 Explainable AI
 
-      ↓
+      ↓
 
 Result + Important Features
 
@@ -103,15 +106,25 @@ Web Verification Flow
 TruthLens also provides an optional web-search layer after the user enters a headline or article:
 
 Headline / Article
+
         ↓
+
 Verify with Web
+
         ↓
+
 FastAPI /api/search
+
         ↓
+
 Serper Web Search API
+
         ↓
+
 Up to 5 Related Sources
+
         ↓
+
 Web Evidence
 
 The web-search feature is separate from the ML prediction. It retrieves related sources for the user to inspect and does not automatically declare an article true or false. The Serper API key remains on the backend and is never exposed to the frontend.
@@ -170,54 +183,61 @@ The Ambiguous examples are intended to demonstrate lower-confidence behavior rat
 
 ### Frontend
 
-| Technology   | Purpose                           |
+| Technology   | Purpose                           |
 
 | ------------ | --------------------------------- |
 
-| React        | UI framework                      |
+| React        | UI framework                      |
 
-| Vite         | Build tool and development server |
+| Vite         | Build tool and development server |
 
-| JavaScript   | Application logic                 |
+| JavaScript   | Application logic                 |
 
-| CSS          | Styling with CSS variables        |
+| CSS          | Styling with CSS variables        |
 
-| Lucide React | Icon library                      |
+| Lucide React | Icon library                      |
 
-| Recharts     | Chart visualizations              |
+| Recharts     | Chart visualizations              |
 
 ### Backend
 
-| Technology | Purpose                         |
+| Technology | Purpose                         |
 
 | ---------- | ------------------------------- |
 
-| Python     | Server-side language            |
+| Python     | Server-side language            |
 
-| FastAPI    | REST API framework              |
+| FastAPI    | REST API framework              |
 
-| Uvicorn    | ASGI server                     |
+| Uvicorn    | ASGI server                     |
 
-| Pydantic   | Request and response validation |
+| Pydantic   | Request and response validation |
 
 ### Machine Learning
 
-| Technology              | Purpose                    |
+| Technology              | Purpose                    |
 
 | ----------------------- | -------------------------- |
 
-| Scikit-learn            | Machine Learning framework |
+| Scikit-learn            | Machine Learning framework |
 
-| TF-IDF                  | Text feature extraction    |
+| TF-IDF                  | Text feature extraction    |
 
-| Logistic Regression     | Classification model       |
+| Logistic Regression     | Classification model       |
 
-| Multinomial Naive Bayes | Classification model       |
+| Multinomial Naive Bayes | Classification model       |
 
-| Linear SVM              | Best classification model  |
+| Linear SVM              | Best classification model  |
 
-### Explainability
+### Web Search & Verification
 
+Technology	Purpose
+Serper API	Web search and related-source retrieval
+FastAPI /api/search	Secure backend proxy for web search
+WebEvidence component	Displays related web sources in the frontend
+The Serper API key is stored on the backend and is never exposed to the frontend.
+
+Explainability
 Feature importance and textual feature contribution analysis are performed using model coefficients and TF-IDF weights.
 
 For each prediction, TruthLens extracts:
@@ -338,39 +358,39 @@ The processed datasets are generated locally and are not stored in the Git repos
 
 ### Validation Set Comparison
 
-| Model                   |   Accuracy |  Precision |     Recall |   F1-Score |
+| Model                   |   Accuracy |  Precision |     Recall |   F1-Score |
 
 | ----------------------- | ---------: | ---------: | ---------: | ---------: |
 
-| Logistic Regression     |     0.9580 |     0.9522 |     0.9555 |     0.9538 |
+| Logistic Regression     |     0.9580 |     0.9522 |     0.9555 |     0.9538 |
 
-| Multinomial Naive Bayes |     0.8592 |     0.8239 |     0.8770 |     0.8496 |
+| Multinomial Naive Bayes |     0.8592 |     0.8239 |     0.8770 |     0.8496 |
 
-| **Linear SVM**          | **0.9672** | **0.9651** | **0.9626** | **0.9638** |
+| **Linear SVM**          | **0.9672** | **0.9651** | **0.9626** | **0.9638** |
 
 ### Best Model — Linear SVM
 
-| Metric    |  Value |
+| Metric    |  Value |
 
 | --------- | -----: |
 
-| Accuracy  | 0.9644 |
+| Accuracy  | 0.9644 |
 
 | Precision | 0.9616 |
 
-| Recall    | 0.9598 |
+| Recall    | 0.9598 |
 
-| F1-Score  | 0.9607 |
+| F1-Score  | 0.9607 |
 
 ### Confusion Matrix
 
-|                    | Predicted Genuine | Predicted Fake |
+|                    | Predicted Genuine | Predicted Fake |
 
 | ------------------ | ----------------: | -------------: |
 
-| **Actual Genuine** |        5,053 (TN) |       166 (FP) |
+| **Actual Genuine** |        5,053 (TN) |       166 (FP) |
 
-| **Actual Fake**    |          174 (FN) |     4,159 (TP) |
+| **Actual Fake**    |          174 (FN) |     4,159 (TP) |
 
 ---
 
@@ -426,61 +446,61 @@ TruthLens/
 
 ├── backend/
 
-│   └── app/
+│   └── app/
 
-│       ├── main.py
+│       ├── main.py
 
-│       ├── routes/
+│       ├── routes/
 
-│       ├── services/
+│       ├── services/
 
-│       ├── ml/
+│       ├── ml/
 
-│       ├── schemas/
+│       ├── schemas/
 
-│       └── utils/
+│       └── utils/
 
 │
 
 ├── frontend/
 
-│   └── src/
+│   └── src/
 
-│       ├── components/
+│       ├── components/
 
-│       ├── pages/
+│       ├── pages/
 
-│       ├── hooks/
+│       ├── hooks/
 
-│       ├── services/
+│       ├── services/
 
-│       └── utils/
+│       └── utils/
 
 │
 
 ├── ml/
 
-│   ├── artifacts/
+│   ├── artifacts/
 
-│   ├── results/
+│   ├── results/
 
-│   ├── preprocessing/
+│   ├── preprocessing/
 
-│   ├── training/
+│   ├── training/
 
-│   ├── evaluation/
+│   ├── evaluation/
 
-│   └── explainability/
+│   └── explainability/
 
 │
 
 ├── dataset/
 
-│   ├── raw/
+│   ├── raw/
 
-│   │   └── WELFake_Dataset.zip
+│   │   └── WELFake_Dataset.zip
 
-│   └── processed/
+│   └── processed/
 
 │
 
@@ -490,21 +510,21 @@ TruthLens/
 
 ├── screenshots/
 
-│   ├── home.png
+│   ├── home.png
 
-│   ├── analyze-genuine.png
+│   ├── analyze-genuine.png
 
-│   ├── analyze-fake.png
+│   ├── analyze-fake.png
 
-│   ├── dashboard.png
+│   ├── dashboard.png
 
-│   ├── research.png
+│   ├── research.png
 
-│   ├── model.png
+│   ├── model.png
 
-│   ├── how-it-works.png
+│   ├── how-it-works.png
 
-│   └── dark-mode.png
+│   └── dark-mode.png
 
 │
 
@@ -692,9 +712,9 @@ Example request:
 
 {
 
-  "title": "Government announces new education policy",
+  "title": "Government announces new education policy",
 
-  "text": "The government announced a new education policy after consultations with schools, universities and education experts."
+  "text": "The government announced a new education policy after consultations with schools, universities and education experts."
 
 }
 
@@ -732,24 +752,54 @@ The response is displayed as Web Evidence, including source/domain, title, snipp
 
 Web search provides supporting evidence for the user to inspect. It is not an independent fact-checking mechanism and does not override the ML prediction.
 
+Web Search / Verification
+Endpoint
+POST /api/search
+The endpoint is used by the Verify with Web button on the Analyze page.
+
+Search Flow
+Headline / Article
+        ↓
+Verify with Web
+        ↓
+FastAPI /api/search
+        ↓
+Serper Web Search API
+        ↓
+Up to 5 Related Sources
+        ↓
+Web Evidence
+The frontend sends the current headline as the primary search query. If no headline is available, a concise portion of the article text is used.
+
+The response can contain up to 5 related web sources and is displayed as Web Evidence with:
+
+Source / domain
+
+Article title
+
+Search-result snippet
+
+Original source link
+
+The web-search layer is independent of the ML prediction. It provides supporting evidence for the user to inspect and does not automatically declare an article true or false.
+
+The Serper API key remains backend-only and is never exposed to the frontend.
+
+Demo Testing Library
+The Analyze page includes a controlled demo testing set:
+
+5 Genuine examples
+
+5 Fake examples
+
+4 Ambiguous examples
+
+The Ambiguous examples are intended to demonstrate lower-confidence behavior rather than force a binary ground-truth label.
+
+These demo examples are for presentation and UI testing and are kept separate from model evaluation metrics.
+
 ## Author
 
 Made With ❤️ by **@mash157**
 
 © All Rights Reserved 2026
-
-````
-
-After replacing your existing README with this, run:
-
-```powershell
-
-cd C:\Users\USER\Downloads\TruthLens
-
-git add README.md
-
-git commit -m "Update README with live deployment links"
-
-git -c core.hooksPath=NUL push origin master --force
-
-````
