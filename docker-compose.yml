@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
+      - DEBUG=False
+      - MODEL_PATH=/app/ml/artifacts/best_model.joblib
+      - VECTORIZER_PATH=/app/ml/artifacts/tfidf_vectorizer.joblib
+      - FEATURE_NAMES_PATH=/app/ml/artifacts/feature_names.joblib
+      - MODEL_METADATA_PATH=/app/ml/artifacts/model_metadata.json
+    volumes:
+      - ./ml/artifacts:/app/ml/artifacts
+      - ./ml/results:/app/ml/results
+    restart: always
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    depends_on:
+      - backend
+    restart: always
