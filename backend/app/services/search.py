@@ -26,11 +26,12 @@ class SearchService:
         api_url = config.SERPER_API_URL
 
         if not api_key:
+            logger.warning("SERPER_API_KEY environment variable is not configured.")
             raise HTTPException(
                 status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
                 detail={
                     "error": "Serper API Not Configured",
-                    "message": "SERPER_API_KEY is not set. Please add it to your .env file."
+                    "message": "Web search is not available. The server administrator needs to configure the SERPER_API_KEY environment variable."
                 }
             )
 

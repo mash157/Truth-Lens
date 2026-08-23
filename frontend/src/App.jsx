@@ -47,7 +47,7 @@ function App() {
       >
         <Navbar theme={theme} toggleTheme={toggleTheme} />
 
-        <main style={{ flex: 1 }}>
+        <main style={{ flex: 1 }} className="main-content">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/analyze" element={<Analyze />} />

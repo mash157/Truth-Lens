@@ -29,3 +29,11 @@ CONFUSION_MATRIX_PATH = BASE_DIR / "ml" / "results" / "confusion_matrix.png"
 # Serper API (Google Search)
 SERPER_API_KEY = os.getenv("SERPER_API_KEY", "")
 SERPER_API_URL = "https://google.serper.dev/search"
+
+# Log search configuration status on import (without exposing the key)
+import logging
+_logger = logging.getLogger(__name__)
+if SERPER_API_KEY:
+    _logger.info("SERPER_API_KEY is configured — web search is available.")
+else:
+    _logger.warning("SERPER_API_KEY is not set — web search will be unavailable.")

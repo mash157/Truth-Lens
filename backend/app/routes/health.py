@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from backend.app.ml.model_loader import artifacts
+import backend.app.utils.config as config
 
 router = APIRouter()
 
@@ -23,10 +24,13 @@ def health_check():
     if not model_loaded:
         model_loaded = artifacts.load()
 
+    search_configured = bool(config.SERPER_API_KEY)
+
     return {
         "status": "healthy",
         "service": "TruthLens API",
         "version": "1.0.0",
         "model_loaded": model_loaded,
         "model_error": artifacts.error_message if not model_loaded else None,
+        "search_available": search_configured,
     }

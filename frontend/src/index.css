@@ -327,6 +327,30 @@ button:focus-visible {
   }
 }
 
+/* ── Mobile navbar spacing ────────────────────────────── */
+/* Ensure page content is never hidden behind the sticky navbar */
+.main-content {
+  padding-top: 0;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding-top: 8px;
+  }
+
+  .analyze-header {
+    padding-top: 24px !important;
+  }
+
+  .analyze-actions {
+    flex-direction: column;
+  }
+
+  .analyze-actions .btn {
+    width: 100%;
+  }
+}
+
 /* Animations */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }

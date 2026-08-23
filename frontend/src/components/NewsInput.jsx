@@ -117,7 +117,7 @@ export default function NewsInput({ onResult, onLoading, onError, onInputChange,
       </div>
 
       {/* Actions */}
-      <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+      <div className="analyze-actions" style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
         <button className="btn btn-primary" onClick={handleAnalyze} disabled={!canSubmit}>
           {submitting ? 'Analyzing...' : <><Search size={16} /> Analyze</>}
         </button>

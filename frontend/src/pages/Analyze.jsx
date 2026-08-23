@@ -14,6 +14,7 @@ export default function Analyze() {
     <div style={{ paddingBottom: 80 }}>
       {/* Page Header */}
       <section
+        className="analyze-header"
         style={{
           textAlign: 'center',
           padding: '50px 24px 30px',
