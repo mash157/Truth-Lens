@@ -26,3 +26,5 @@ frontend/dist/
 
 # Temporary files
 *.log
+
+dataset/raw/WELFake_Dataset.csv

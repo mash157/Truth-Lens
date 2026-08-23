@@ -1,8 +1,9 @@
 import ConfidenceMeter from './ConfidenceMeter';
 import FeatureImportance from './FeatureImportance';
 import Disclaimer from './Disclaimer';
+import WebEvidence from './WebEvidence';
 
-export default function ResultCard({ result }) {
+export default function ResultCard({ result, title, articleText }) {
   if (!result) return null;
   const isGenuine = result.prediction === 'LIKELY_GENUINE';
   const borderClass = isGenuine ? 'border-genuine' : 'border-fake';
@@ -63,6 +64,9 @@ export default function ResultCard({ result }) {
 
       {/* Disclaimer */}
       <Disclaimer compact />
+
+      {/* Verify with Web */}
+      <WebEvidence headline={title} articleText={articleText} />
     </div>
   );
 }

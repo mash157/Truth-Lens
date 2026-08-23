@@ -42,6 +42,12 @@ export const api = {
       method: 'POST',
       body: JSON.stringify({ title, text }),
     }),
+
+  searchNews: (query, numResults = 5) =>
+    apiRequest('/api/search', {
+      method: 'POST',
+      body: JSON.stringify({ query, num_results: numResults }),
+    }),
     
   getMetrics: () => apiRequest('/api/metrics'),
   

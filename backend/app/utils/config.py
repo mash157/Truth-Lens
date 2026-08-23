@@ -25,3 +25,7 @@ METRICS_PATH = BASE_DIR / "ml" / "results" / "metrics.json"
 MODEL_COMPARISON_PATH = BASE_DIR / "ml" / "results" / "model_comparison.json"
 FEATURE_IMPORTANCE_PATH = BASE_DIR / "ml" / "results" / "feature_importance.json"
 CONFUSION_MATRIX_PATH = BASE_DIR / "ml" / "results" / "confusion_matrix.png"
+
+# Serper API (Google Search)
+SERPER_API_KEY = os.getenv("SERPER_API_KEY", "")
+SERPER_API_URL = "https://google.serper.dev/search"

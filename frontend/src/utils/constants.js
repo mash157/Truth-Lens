@@ -1,9 +1,9 @@
 // API configuration
-export const API_BASE_URL = import.meta.env.VITE_API_URL || (
-  import.meta.env.DEV
-    ? 'http://localhost:8000'
-    : 'https://truthlens-backend-xtl2.onrender.com'
-);
+// In dev mode, Vite proxies /api/* to the backend, so we use an empty base URL.
+// In production, requests go directly to the deployed backend.
+export const API_BASE_URL = import.meta.env.DEV
+  ? ''
+  : (import.meta.env.VITE_API_URL || 'https://truthlens-backend-xtl2.onrender.com');
 
 // Disclaimer
 export const RESEARCH_DISCLAIMER = 

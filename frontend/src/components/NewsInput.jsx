@@ -1,32 +1,19 @@
 import { useState } from 'react';
-import { Search, CheckCircle, XCircle, HelpCircle } from 'lucide-react';
+import { Search, CheckCircle, XCircle, HelpCircle, ChevronRight, Globe } from 'lucide-react';
 import { api } from '../services/api';
+import { DEMO_ARTICLES } from '../data/demoArticles';
 
-const DEMO_ARTICLES = [
-  {
-    id: 'genuine',
-    type: 'genuine',
-    title: 'UN calls for humanitarian pause in Yemen as fighting escalates',
-    text: "The United Nations called for a humanitarian pause in Yemen after fighting escalated in the capital Sana'a. The organization urged all parties to protect civilians, allow medical assistance to reach affected communities, and ensure access to food and water. Relief coordinators expressed concern about civilian casualties and called for immediate measures to protect vulnerable populations.",
-  },
-  {
-    id: 'fake',
-    type: 'fake',
-    title: 'UNBELIEVABLE! CLINTON FOUNDATION RECEIVED MILLIONS IN CASH FROM ALIEN LOBBY',
-    text: 'In a shocking turn of events, a secret leaked document has revealed that the Clinton Foundation received millions of dollars in cash payments from a mysterious alien lobby group claiming to represent extraterrestrial interests. According to the document, the payments were made during the height of the presidential campaign. This shocking discovery has left the public stunned, and mainstream media is refusing to cover the massive cover-up. Investigators are calling it the biggest scandal in modern history. SHARE this article everywhere before it gets taken down by the elite!',
-  },
-  {
-    id: 'ambiguous',
-    type: 'ambiguous',
-    title: 'Scientists report unexpected changes in global weather patterns',
-    text: 'A new report describes changes in weather patterns observed across several regions. Researchers say the findings require further study to understand the causes and possible long-term effects. Some experts believe the changes may be connected to broader environmental trends, while others say more evidence is needed before reaching a clear conclusion.',
-  },
+const TABS = [
+  { key: 'genuine', label: 'Genuine', icon: CheckCircle, color: 'var(--accent-genuine)' },
+  { key: 'fake', label: 'Fake', icon: XCircle, color: 'var(--accent-fake)' },
+  { key: 'ambiguous', label: 'Ambiguous', icon: HelpCircle, color: 'var(--accent-ambiguous)' },
 ];
 
-export default function NewsInput({ onResult, onLoading, onError }) {
+export default function NewsInput({ onResult, onLoading, onError, onInputChange, onWebResults }) {
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [demoTab, setDemoTab] = useState('genuine');
 
   const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
   const charCount = text.length;
@@ -37,6 +24,7 @@ export default function NewsInput({ onResult, onLoading, onError }) {
     setSubmitting(true);
     onLoading(true);
     onError(null);
+    if (onInputChange) onInputChange({ title, text });
     try {
       const result = await api.analyzeNews(title, text);
       onResult(result);
@@ -49,9 +37,27 @@ export default function NewsInput({ onResult, onLoading, onError }) {
     }
   };
 
-  const handleTryExample = (sample) => {
-    setTitle(sample.title);
-    setText(sample.text);
+  const handleVerifyWithWeb = async () => {
+    if (!canSubmit) return;
+    setSubmitting(true);
+    onLoading(true);
+    onError(null);
+    if (onInputChange) onInputChange({ title, text });
+    try {
+      const query = title.trim() || text.trim().slice(0, 120);
+      const data = await api.searchNews(query, 5);
+      if (onWebResults) onWebResults(data.results || []);
+    } catch (err) {
+      onError(err.detail || err.message || 'Web verification failed.');
+    } finally {
+      setSubmitting(false);
+      onLoading(false);
+    }
+  };
+
+  const handleTryExample = (article) => {
+    setTitle(article.headline);
+    setText(article.text);
     onResult(null);
     onError(null);
   };
@@ -62,6 +68,12 @@ export default function NewsInput({ onResult, onLoading, onError }) {
     onResult(null);
     onError(null);
   };
+
+  const filteredDemos = DEMO_ARTICLES.filter(a => {
+    if (demoTab === 'genuine') return a.expectedLabel === 'LIKELY_GENUINE';
+    if (demoTab === 'fake') return a.expectedLabel === 'LIKELY_FAKE';
+    return a.expectedBehavior === 'LOWER_CONFIDENCE';
+  });
 
   return (
     <div className="glass-card analyze-input-card fade-in" style={{ maxWidth: 720, margin: '0 auto' }}>
@@ -79,7 +91,7 @@ export default function NewsInput({ onResult, onLoading, onError }) {
       <input
         className="input-field"
         type="text"
-        placeholder="Enter the headline or title…"
+        placeholder="Enter the headline or title..."
         value={title}
         onChange={e => setTitle(e.target.value)}
         style={{ marginBottom: 16 }}
@@ -91,7 +103,7 @@ export default function NewsInput({ onResult, onLoading, onError }) {
       </label>
       <textarea
         className="input-field"
-        placeholder="Paste or type the article text here (minimum 10 characters)…"
+        placeholder="Paste or type the article text here (minimum 10 characters)..."
         value={text}
         onChange={e => setText(e.target.value)}
         rows={8}
@@ -109,30 +121,149 @@ export default function NewsInput({ onResult, onLoading, onError }) {
         <button className="btn btn-primary" onClick={handleAnalyze} disabled={!canSubmit}>
           {submitting ? 'Analyzing...' : <><Search size={16} /> Analyze</>}
         </button>
+        <button
+          className="btn btn-secondary"
+          onClick={handleVerifyWithWeb}
+          disabled={!canSubmit}
+          style={{
+            borderColor: 'var(--accent-web)',
+            color: 'var(--accent-web)',
+            background: 'var(--accent-web-glow)',
+          }}
+        >
+          <Globe size={16} /> Verify with Web
+        </button>
         <button className="btn btn-secondary" onClick={handleClear}>Clear</button>
       </div>
 
-      {/* Demo articles */}
-      <div className="demo-section" style={{ marginTop: 24, borderTop: '1px solid var(--border-color)', paddingTop: 16 }}>
-          <p style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 10 }}>
-            Try a Demo Example
+      {/* ── Demo Article Library ── */}
+      <div style={{ marginTop: 28, borderTop: '1px solid var(--border-color)', paddingTop: 20 }}>
+        {/* Demo Warning Banner */}
+        <div style={{
+          background: 'rgba(245, 158, 11, 0.08)',
+          border: '1px solid rgba(245, 158, 11, 0.25)',
+          borderRadius: 8,
+          padding: '10px 14px',
+          marginBottom: 16,
+        }}>
+          <p style={{
+            fontSize: '0.82rem',
+            fontWeight: 700,
+            color: 'var(--accent-ambiguous)',
+            margin: '0 0 4px',
+          }}>Demo Testing Set</p>
+          <p style={{
+            fontSize: '0.75rem',
+            color: 'var(--text-muted)',
+            margin: 0,
+            lineHeight: 1.45,
+          }}>
+            These examples are for testing the TruthLens model and UI. Expected labels are testing expectations and are not proof of factual truth.
           </p>
-          <div className="demo-buttons" style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-            {DEMO_ARTICLES.map(s => (
+        </div>
+
+        <h3 style={{
+          fontSize: '1.05rem',
+          fontWeight: 700,
+          color: 'var(--text-primary)',
+          marginBottom: 4,
+        }}>Try a Demo Article</h3>
+        <p style={{
+          fontSize: '0.8rem',
+          color: 'var(--text-muted)',
+          marginBottom: 16,
+        }}>
+          Select a category, then click an article to populate the fields above.
+        </p>
+
+        {/* Category Tabs */}
+        <div style={{ display: 'flex', gap: 8, marginBottom: 16 }}>
+          {TABS.map(tab => {
+            const Icon = tab.icon;
+            const isActive = demoTab === tab.key;
+            return (
               <button
-                key={s.id}
-                className="btn btn-secondary"
-                onClick={() => handleTryExample(s)}
-                style={{ fontSize: '0.78rem', padding: '6px 14px' }}
+                key={tab.key}
+                onClick={() => setDemoTab(tab.key)}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  padding: '7px 16px',
+                  fontSize: '0.82rem',
+                  fontWeight: 600,
+                  borderRadius: 8,
+                  border: `1px solid ${isActive ? tab.color : 'var(--border-color)'}`,
+                  background: isActive ? `${tab.color}18` : 'transparent',
+                  color: isActive ? tab.color : 'var(--text-secondary)',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                }}
               >
-                {s.type === 'genuine' ? <CheckCircle size={14} style={{ color: 'var(--accent-genuine)' }} /> : s.type === 'fake' ? <XCircle size={14} style={{ color: 'var(--accent-fake)' }} /> : <HelpCircle size={14} style={{ color: 'var(--accent-ambiguous)' }} />}{' '}
-                {s.type === 'genuine' ? 'Genuine Demo' : s.type === 'fake' ? 'Fake Demo' : 'Ambiguous Demo'}
+                <Icon size={14} />
+                {tab.label}
               </button>
-            ))}
-          </div>
-          <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontStyle: 'italic', marginTop: 8 }}>
-            DEMO ARTICLES — FOR SYSTEM TESTING ONLY
-          </p>
+            );
+          })}
+        </div>
+
+        {/* Demo Article Cards — Responsive Grid */}
+        <div className="demo-grid">
+          {filteredDemos.map(article => (
+            <div
+              key={article.id}
+              className="glass-card demo-card"
+              onClick={() => handleTryExample(article)}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6, flexWrap: 'wrap' }}>
+                <span style={{
+                  fontSize: '0.7rem',
+                  fontWeight: 600,
+                  color: 'var(--text-muted)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.04em',
+                }}>{article.category}</span>
+                {article.sourceType === 'demo-test' && (
+                  <span style={{
+                    fontSize: '0.62rem',
+                    fontWeight: 500,
+                    color: 'var(--primary)',
+                    background: 'var(--primary-glow)',
+                    padding: '2px 6px',
+                    borderRadius: 4,
+                  }}>DEMO TEST</span>
+                )}
+              </div>
+              <p style={{
+                fontSize: '0.85rem',
+                fontWeight: 600,
+                color: 'var(--text-primary)',
+                lineHeight: 1.35,
+                margin: '0 0 10px',
+                display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden',
+              }}>{article.headline}</p>
+              <button
+                className="btn btn-secondary demo-use-btn"
+              >
+                Use This Example
+                <ChevronRight size={12} />
+              </button>
+            </div>
+          ))}
+        </div>
+
+        <p style={{
+          fontSize: '0.72rem',
+          color: 'var(--text-muted)',
+          fontStyle: 'italic',
+          marginTop: 12,
+          textAlign: 'center',
+        }}>
+          DEMO TEST SET — {filteredDemos.length} articles shown
+        </p>
       </div>
     </div>
   );

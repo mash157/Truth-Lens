@@ -22,6 +22,8 @@
   --accent-fake: #e11d48;
   --accent-fake-glow: rgba(225, 29, 72, 0.1);
   --accent-ambiguous: #d97706;
+  --accent-web: #0284c7;
+  --accent-web-glow: rgba(2, 132, 199, 0.12);
   
   --border-color: rgba(226, 232, 240, 0.8);
   --glass-bg: rgba(255, 255, 255, 0.65);
@@ -50,6 +52,8 @@
   --accent-fake: #f43f5e;
   --accent-fake-glow: rgba(244, 63, 94, 0.15);
   --accent-ambiguous: #f59e0b;
+  --accent-web: #38bdf8;
+  --accent-web-glow: rgba(56, 189, 248, 0.2);
   
   --border-color: rgba(37, 47, 63, 0.6);
   --glass-bg: rgba(17, 24, 39, 0.6);
@@ -254,6 +258,41 @@ button:focus-visible {
 
 .demo-buttons {
   min-width: 0;
+}
+
+/* Demo Article Grid */
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.demo-card {
+  padding: 14px 16px !important;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 130px;
+}
+
+.demo-use-btn {
+  align-self: flex-start;
+  padding: 5px 12px !important;
+  font-size: 0.72rem !important;
+  gap: 4px !important;
+}
+
+@media (max-width: 768px) {
+  .demo-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .demo-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .grid-2 {
