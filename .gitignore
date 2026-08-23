@@ -62,7 +62,6 @@ dist-frontend/
 
 # Application Specific Artifacts
 dataset/raw/*.csv
-!dataset/raw/WELFake_Dataset.csv
 dataset/processed/*.csv
 ml/artifacts/*.joblib
 ml/results/*.png
