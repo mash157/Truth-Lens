@@ -1,0 +1,2 @@
+dataset/raw/WELFake_Dataset.csv filter=lfs diff=lfs merge=lfs -text
+dataset/raw/WELFake_Dataset.zip filter=lfs diff=lfs merge=lfs -text

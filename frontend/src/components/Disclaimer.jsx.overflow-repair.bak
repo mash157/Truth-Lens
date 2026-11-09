@@ -1,0 +1,15 @@
+import { AlertTriangle } from 'lucide-react';
+import { RESEARCH_DISCLAIMER } from '../utils/constants';
+
+export default function Disclaimer({ compact = false }) {
+  return (
+    <div className={`disclaimer${compact ? ' is-compact' : ''}`}>
+      <AlertTriangle
+        className="disclaimer-icon"
+        size={compact ? 16 : 18}
+        aria-hidden="true"
+      />
+      <p className="disclaimer-text">{RESEARCH_DISCLAIMER}</p>
+    </div>
+  );
+}

@@ -1,0 +1,34 @@
+{
+    "raw_record_count": 72134,
+    "clean_record_count": 63678,
+    "columns": [
+        "Unnamed: 0",
+        "title",
+        "text",
+        "label"
+    ],
+    "missing_values": {
+        "title": 558,
+        "text": 39,
+        "both_empty": 0
+    },
+    "duplicate_records": 8456,
+    "class_distribution": {
+        "genuine": 34791,
+        "fake": 28887
+    },
+    "class_percentages": {
+        "genuine": 54.64,
+        "fake": 45.36
+    },
+    "text_length": {
+        "min_words": 0,
+        "max_words": 24234,
+        "avg_words": 542.31
+    },
+    "splits": {
+        "train": 44574,
+        "validation": 9552,
+        "test": 9552
+    }
+}

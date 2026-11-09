@@ -1,0 +1,19 @@
+{
+    "model": "Logistic Regression",
+    "tuning_parameters": "C (regularization strength)",
+    "results": [
+        {
+            "C": 0.1,
+            "F1-Score": 0.8751
+        },
+        {
+            "C": 1.0,
+            "F1-Score": 0.9277
+        },
+        {
+            "C": 10.0,
+            "F1-Score": 0.9467
+        }
+    ],
+    "best_C": 10.0
+}

@@ -1,0 +1,30 @@
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Python environments
+.venv/
+venv/
+env/
+ENV/
+
+# Environment/secrets
+.env
+.env.*
+!.env.example
+!frontend/.env.production
+
+# IDE
+.vscode/
+.idea/
+
+# Node
+node_modules/
+
+# Frontend build
+frontend/dist/
+
+# Temporary files
+*.log
+
+dataset/raw/WELFake_Dataset.csv
