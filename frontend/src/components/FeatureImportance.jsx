@@ -11,6 +11,7 @@ export default function FeatureImportance({ supporting = [], opposing = [] }) {
         const pct = Math.min((f.weight / maxWeight) * 100, 100);
         return (
           <div className="bar-row" key={i}>
+            <span className="bar-rank">{i + 1}</span>
             <span className="bar-label" title={f.word}>{f.word}</span>
             <div className="bar-track">
               <div className={`bar-fill ${fillClass}`} style={{ width: `${pct}%` }} />
@@ -23,43 +24,31 @@ export default function FeatureImportance({ supporting = [], opposing = [] }) {
   );
 
   return (
-    <div style={{ marginTop: 24 }}>
-      <h3 style={{
-        fontSize: '1.05rem',
-        fontWeight: 700,
-        color: 'var(--text-primary)',
-        marginBottom: 4,
-      }}>Why did the model classify this article this way?</h3>
-      <p style={{
-        fontSize: '0.82rem',
-        color: 'var(--text-muted)',
-        marginBottom: 20,
-      }}>Features are ranked by their contribution weight (TF-IDF value × model coefficient).</p>
+    <div className="feature-importance">
+      <h3 className="feature-heading">
+        Why did the model classify this article this way?
+      </h3>
+      <p className="feature-sub">
+        Features are ranked by their contribution weight (TF-IDF value × model
+        coefficient).
+      </p>
 
       {supporting.length > 0 && (
-        <div style={{ marginBottom: 28 }}>
-          <h4 style={{
-            fontSize: '0.9rem', fontWeight: 600,
-            color: 'var(--text-secondary)', marginBottom: 8,
-            textTransform: 'uppercase', letterSpacing: '0.04em',
-          }}>Supporting Features</h4>
+        <div className="feature-group">
+          <h4 className="feature-group-title genuine">Supporting Features</h4>
           {renderBars(supporting, 'fill-genuine')}
         </div>
       )}
 
       {opposing.length > 0 && (
-        <div>
-          <h4 style={{
-            fontSize: '0.9rem', fontWeight: 600,
-            color: 'var(--text-secondary)', marginBottom: 8,
-            textTransform: 'uppercase', letterSpacing: '0.04em',
-          }}>Opposing Features</h4>
+        <div className="feature-group">
+          <h4 className="feature-group-title fake">Opposing Features</h4>
           {renderBars(opposing, 'fill-fake')}
         </div>
       )}
 
       {supporting.length === 0 && opposing.length === 0 && (
-        <p style={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>
+        <p className="feature-empty">
           No feature contributions available for this text.
         </p>
       )}

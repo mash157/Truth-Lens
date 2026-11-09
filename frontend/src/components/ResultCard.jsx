@@ -14,29 +14,22 @@ export default function ResultCard({ result, title, articleText }) {
   const labelBg = isUncertain ? 'var(--accent-ambiguous-glow, rgba(245,158,11,0.12))' : (isGenuine ? 'var(--accent-genuine-glow)' : 'var(--accent-fake-glow)');
 
   return (
-    <div className={`glass-card ${borderClass} fade-in`} style={{
-      maxWidth: 720,
-      margin: '32px auto',
-    }}>
+    <div className={`glass-card result-card ${borderClass} fade-in`}>
       {/* Prediction label */}
-      <div style={{ textAlign: 'center', marginBottom: 20 }}>
-        <span style={{
-          display: 'inline-block',
-          padding: '8px 28px',
-          borderRadius: '24px',
-          background: labelBg,
-          color: labelColor,
-          fontSize: '1.2rem',
-          fontWeight: 800,
-          letterSpacing: '0.06em',
-          textTransform: 'uppercase',
-        }}>
+      <div className="result-prediction-wrap">
+        <span
+          className="result-prediction"
+          style={{ background: labelBg, color: labelColor }}
+        >
           {result.prediction.replace('_', ' ')}
         </span>
       </div>
 
       {/* Confidence */}
-      <ConfidenceMeter confidence={result.confidence} prediction={result.prediction} />
+      <ConfidenceMeter
+        confidence={result.confidence}
+        prediction={result.prediction}
+      />
 
       {/* Uncertainty Notice */}
       {result.uncertainty && (
@@ -70,23 +63,22 @@ export default function ResultCard({ result, title, articleText }) {
       )}
 
       {/* Model & metadata */}
-      <div style={{
-        display: 'flex',
-        gap: 24,
-        marginTop: 20,
-        flexWrap: 'wrap',
-      }}>
-        <div>
-          <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Model</span>
-          <p style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{result.model_name}</p>
+      <div className="result-meta-grid">
+        <div className="result-meta-block">
+          <span className="result-meta-label">Model</span>
+          <p className="result-meta-value">{result.model_name}</p>
         </div>
-        <div>
-          <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Words</span>
-          <p style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{result.word_count?.toLocaleString()}</p>
+        <div className="result-meta-block">
+          <span className="result-meta-label">Words</span>
+          <p className="result-meta-value">
+            {result.word_count?.toLocaleString()}
+          </p>
         </div>
-        <div>
-          <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Characters</span>
-          <p style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{result.character_count?.toLocaleString()}</p>
+        <div className="result-meta-block">
+          <span className="result-meta-label">Characters</span>
+          <p className="result-meta-value">
+            {result.character_count?.toLocaleString()}
+          </p>
         </div>
       </div>
 

@@ -77,128 +77,77 @@ export default function NewsInput({ onResult, onLoading, onError, onInputChange,
 
   return (
     <div className="glass-card analyze-input-card fade-in" style={{ maxWidth: 720, margin: '0 auto' }}>
-      <h2 style={{
-        fontSize: '1.3rem',
-        fontWeight: 700,
-        marginBottom: 20,
-        color: 'var(--text-primary)',
-      }}>Analyze a News Article</h2>
+      <h2 className="form-title">Analyze a News Article</h2>
 
       {/* Headline */}
-      <label style={{ display: 'block', marginBottom: 6, fontSize: '0.88rem', fontWeight: 600, color: 'var(--text-secondary)' }}>
-        Headline <span style={{ fontWeight: 400, color: 'var(--text-muted)' }}>(optional)</span>
+      <label className="field-label" htmlFor="analyze-headline">
+        Headline <span className="field-optional">(optional)</span>
       </label>
       <input
+        id="analyze-headline"
         className="input-field"
         type="text"
         placeholder="Enter the headline or title..."
         value={title}
         onChange={e => setTitle(e.target.value)}
-        style={{ marginBottom: 16 }}
       />
 
       {/* Article body */}
-      <label style={{ display: 'block', marginBottom: 6, fontSize: '0.88rem', fontWeight: 600, color: 'var(--text-secondary)' }}>
-        Article Content <span style={{ color: 'var(--accent-fake)', fontWeight: 400 }}>*</span>
+      <label className="field-label" htmlFor="analyze-content">
+        Article Content <span className="field-required">*</span>
       </label>
       <textarea
+        id="analyze-content"
         className="input-field"
         placeholder="Paste or type the article text here (minimum 10 characters)..."
         value={text}
         onChange={e => setText(e.target.value)}
         rows={8}
-        style={{ resize: 'vertical', marginBottom: 8 }}
       />
 
       {/* Counters */}
-      <div style={{ display: 'flex', gap: 16, fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: 16 }}>
+      <div className="field-meta">
         <span>{wordCount} words</span>
         <span>{charCount} characters</span>
       </div>
 
       {/* Actions */}
-      <div className="analyze-actions" style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-        <button className="btn btn-primary" onClick={handleAnalyze} disabled={!canSubmit}>
+      <div className="analyze-actions">
+        <button type="button" className="btn btn-primary" onClick={handleAnalyze} disabled={!canSubmit}>
           {submitting ? 'Analyzing...' : <><Search size={16} /> Analyze</>}
         </button>
-        <button
-          className="btn btn-secondary"
-          onClick={handleVerifyWithWeb}
-          disabled={!canSubmit}
-          style={{
-            borderColor: 'var(--accent-web)',
-            color: 'var(--accent-web)',
-            background: 'var(--accent-web-glow)',
-          }}
-        >
+        <button type="button" className="btn btn-web" onClick={handleVerifyWithWeb} disabled={!canSubmit}>
           <Globe size={16} /> Verify with Web
         </button>
-        <button className="btn btn-secondary" onClick={handleClear}>Clear</button>
+        <button type="button" className="btn btn-secondary" onClick={handleClear}>Clear</button>
       </div>
 
-      {/* ── Demo Article Library ── */}
-      <div style={{ marginTop: 28, borderTop: '1px solid var(--border-color)', paddingTop: 20 }}>
-        {/* Demo Warning Banner */}
-        <div style={{
-          background: 'rgba(245, 158, 11, 0.08)',
-          border: '1px solid rgba(245, 158, 11, 0.25)',
-          borderRadius: 8,
-          padding: '10px 14px',
-          marginBottom: 16,
-        }}>
-          <p style={{
-            fontSize: '0.82rem',
-            fontWeight: 700,
-            color: 'var(--accent-ambiguous)',
-            margin: '0 0 4px',
-          }}>Demo Testing Set</p>
-          <p style={{
-            fontSize: '0.75rem',
-            color: 'var(--text-muted)',
-            margin: 0,
-            lineHeight: 1.45,
-          }}>
+      {/* Demo Article Library */}
+      <div className="demo-section">
+        <div className="demo-notice">
+          <p className="demo-notice-title">Demo Testing Set</p>
+          <p className="demo-notice-text">
             These examples are for testing the TruthLens model and UI. Expected labels are testing expectations and are not proof of factual truth.
           </p>
         </div>
 
-        <h3 style={{
-          fontSize: '1.05rem',
-          fontWeight: 700,
-          color: 'var(--text-primary)',
-          marginBottom: 4,
-        }}>Try a Demo Article</h3>
-        <p style={{
-          fontSize: '0.8rem',
-          color: 'var(--text-muted)',
-          marginBottom: 16,
-        }}>
+        <h3 className="demo-heading">Try a Demo Article</h3>
+        <p className="demo-sub">
           Select a category, then click an article to populate the fields above.
         </p>
 
         {/* Category Tabs */}
-        <div style={{ display: 'flex', gap: 8, marginBottom: 16 }}>
+        <div className="demo-tabs">
           {TABS.map(tab => {
             const Icon = tab.icon;
             const isActive = demoTab === tab.key;
             return (
               <button
+                type="button"
                 key={tab.key}
+                className={`demo-tab${isActive ? ' is-active' : ''}`}
+                style={{ '--tab-color': tab.color }}
                 onClick={() => setDemoTab(tab.key)}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 6,
-                  padding: '7px 16px',
-                  fontSize: '0.82rem',
-                  fontWeight: 600,
-                  borderRadius: 8,
-                  border: `1px solid ${isActive ? tab.color : 'var(--border-color)'}`,
-                  background: isActive ? `${tab.color}18` : 'transparent',
-                  color: isActive ? tab.color : 'var(--text-secondary)',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                }}
               >
                 <Icon size={14} />
                 {tab.label}
@@ -207,61 +156,32 @@ export default function NewsInput({ onResult, onLoading, onError, onInputChange,
           })}
         </div>
 
-        {/* Demo Article Cards — Responsive Grid */}
+        {/* Demo Article Cards */}
         <div className="demo-grid">
           {filteredDemos.map(article => (
-            <div
+            <button
+              type="button"
               key={article.id}
               className="glass-card demo-card"
               onClick={() => handleTryExample(article)}
+              aria-label={`Use demo article: ${article.headline}`}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6, flexWrap: 'wrap' }}>
-                <span style={{
-                  fontSize: '0.7rem',
-                  fontWeight: 600,
-                  color: 'var(--text-muted)',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.04em',
-                }}>{article.category}</span>
+              <span className="demo-card-top">
+                <span className="demo-category">{article.category}</span>
                 {article.sourceType === 'demo-test' && (
-                  <span style={{
-                    fontSize: '0.62rem',
-                    fontWeight: 500,
-                    color: 'var(--primary)',
-                    background: 'var(--primary-glow)',
-                    padding: '2px 6px',
-                    borderRadius: 4,
-                  }}>DEMO TEST</span>
+                  <span className="demo-badge">DEMO TEST</span>
                 )}
-              </div>
-              <p style={{
-                fontSize: '0.85rem',
-                fontWeight: 600,
-                color: 'var(--text-primary)',
-                lineHeight: 1.35,
-                margin: '0 0 10px',
-                display: '-webkit-box',
-                WebkitLineClamp: 2,
-                WebkitBoxOrient: 'vertical',
-                overflow: 'hidden',
-              }}>{article.headline}</p>
-              <button
-                className="btn btn-secondary demo-use-btn"
-              >
+              </span>
+              <span className="demo-title">{article.headline}</span>
+              <span className="demo-use-btn">
                 Use This Example
                 <ChevronRight size={12} />
-              </button>
-            </div>
+              </span>
+            </button>
           ))}
         </div>
 
-        <p style={{
-          fontSize: '0.72rem',
-          color: 'var(--text-muted)',
-          fontStyle: 'italic',
-          marginTop: 12,
-          textAlign: 'center',
-        }}>
+        <p className="demo-count">
           DEMO TEST SET — {filteredDemos.length} articles shown
         </p>
       </div>

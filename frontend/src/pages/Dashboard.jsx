@@ -221,7 +221,7 @@ export default function Dashboard() {
 
         {/* Metric Cards */}
         {evalMetrics && (
-          <div className="grid-2" style={{ marginBottom: 28 }}>
+          <div className="kpi-grid">
             <MetricCard
               label="Accuracy"
               value={formatPercentage(evalMetrics.accuracy)}
@@ -351,26 +351,12 @@ export default function Dashboard() {
         {/* Dataset Statistics */}
         {datasetStats && (
           <div className="glass-card fade-in" style={{ marginBottom: 28, padding: '28px 24px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
-              <Database size={20} style={{ color: 'var(--primary)' }} />
-              <h3
-                style={{
-                  fontSize: '1.05rem',
-                  fontWeight: 700,
-                  color: 'var(--text-primary)',
-                }}
-              >
-                Dataset Statistics
-              </h3>
-            </div>
+            <h3 className="panel-heading">
+              <Database size={20} aria-hidden="true" />
+              Dataset Statistics
+            </h3>
 
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
-                gap: 16,
-              }}
-            >
+            <div className="stat-grid">
               <StatItem
                 label="Raw Records"
                 value={datasetStats.raw_record_count?.toLocaleString()}
@@ -416,47 +402,21 @@ export default function Dashboard() {
         {/* Feature Importance */}
         {featureImportance && (
           <div className="glass-card fade-in" style={{ padding: '28px 24px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
-              <BarChart3 size={20} style={{ color: 'var(--primary)' }} />
-              <h3
-                style={{
-                  fontSize: '1.05rem',
-                  fontWeight: 700,
-                  color: 'var(--text-primary)',
-                }}
-              >
-                Global Feature Importance ({featureImportance.model_name})
-              </h3>
-            </div>
+            <h3 className="panel-heading">
+              <BarChart3 size={20} aria-hidden="true" />
+              Global Feature Importance ({featureImportance.model_name})
+            </h3>
 
-            <p
-              style={{
-                fontSize: '0.84rem',
-                color: 'var(--text-muted)',
-                marginBottom: 20,
-                lineHeight: 1.6,
-              }}
-            >
+            <p className="panel-subtitle">
               Words with the strongest model coefficients. Positive values indicate features
               associated with fake articles; negative values indicate features associated with
               genuine articles.
             </p>
 
-            <div className="grid-2">
+            <div className="feature-columns">
               {/* Top Fake Features */}
               <div>
-                <h4
-                  style={{
-                    fontSize: '0.88rem',
-                    fontWeight: 600,
-                    color: 'var(--accent-fake)',
-                    marginBottom: 12,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.04em',
-                  }}
-                >
-                  Top Fake-Associated Features
-                </h4>
+                <h4 className="feature-column-title fake">Top Fake-Associated Features</h4>
                 <div className="bar-chart-container">
                   {featureImportance.top_fake_features?.slice(0, 10).map((f, i) => {
                     const maxVal =
@@ -467,6 +427,7 @@ export default function Dashboard() {
                     );
                     return (
                       <div className="bar-row" key={i}>
+                        <span className="bar-rank">{i + 1}</span>
                         <span className="bar-label" title={f.feature}>
                           {f.feature}
                         </span>
@@ -487,18 +448,7 @@ export default function Dashboard() {
 
               {/* Top Genuine Features */}
               <div>
-                <h4
-                  style={{
-                    fontSize: '0.88rem',
-                    fontWeight: 600,
-                    color: 'var(--accent-genuine)',
-                    marginBottom: 12,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.04em',
-                  }}
-                >
-                  Top Genuine-Associated Features
-                </h4>
+                <h4 className="feature-column-title genuine">Top Genuine-Associated Features</h4>
                 <div className="bar-chart-container">
                   {featureImportance.top_genuine_features?.slice(0, 10).map((f, i) => {
                     const maxVal =
@@ -511,6 +461,7 @@ export default function Dashboard() {
                     );
                     return (
                       <div className="bar-row" key={i}>
+                        <span className="bar-rank">{i + 1}</span>
                         <span className="bar-label" title={f.feature}>
                           {f.feature}
                         </span>
@@ -538,47 +489,10 @@ export default function Dashboard() {
 
 function StatItem({ label, value, sub }) {
   return (
-    <div
-      style={{
-        padding: '14px 16px',
-        borderRadius: 12,
-        background: 'var(--bg-tertiary)',
-        border: '1px solid var(--border-color)',
-      }}
-    >
-      <span
-        style={{
-          fontSize: '0.75rem',
-          fontWeight: 500,
-          color: 'var(--text-muted)',
-          textTransform: 'uppercase',
-          letterSpacing: '0.04em',
-          display: 'block',
-          marginBottom: 4,
-        }}
-      >
-        {label}
-      </span>
-      <span
-        style={{
-          fontSize: '1.3rem',
-          fontWeight: 700,
-          color: 'var(--text-primary)',
-        }}
-      >
-        {value}
-      </span>
-      {sub && (
-        <span
-          style={{
-            fontSize: '0.75rem',
-            color: 'var(--text-muted)',
-            marginLeft: 6,
-          }}
-        >
-          {sub}
-        </span>
-      )}
+    <div className="stat-card">
+      <span className="stat-label">{label}</span>
+      <span className="stat-value">{value}</span>
+      {sub && <span className="stat-sub">{sub}</span>}
     </div>
   );
 }
