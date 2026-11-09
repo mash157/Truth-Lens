@@ -25,7 +25,9 @@ def analyze_news(request: NewsAnalysisRequest):
         supporting_features=explain_res["supporting_features"],
         opposing_features=explain_res["opposing_features"],
         word_count=word_count,
-        character_count=char_count
+        character_count=char_count,
+        uncertainty=pred_res.get("uncertainty", False),
+        max_probability=pred_res.get("max_probability", None)
     )
 
 @router.get("/sample-articles")

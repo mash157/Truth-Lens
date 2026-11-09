@@ -28,3 +28,5 @@ frontend/dist/
 *.log
 
 dataset/raw/WELFake_Dataset.csv
+
+/dataset/processed/train.csv

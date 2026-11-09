@@ -1,30 +1,100 @@
 {
-    "best_model_name": "Linear SVM",
-    "validation_metrics": {
-        "Model": "Linear SVM",
-        "Accuracy": 0.9672,
-        "Precision": 0.9651,
-        "Recall": 0.9626,
-        "F1_Score": 0.9638
+    "best_model_name": "Linear SVM (Calibrated)",
+    "vectorizer_type": "TfidfVectorizer (word-level)",
+    "tfidf_config": {
+        "max_features": 30000,
+        "min_df": 3,
+        "max_df": 0.9,
+        "ngram_range": [
+            1,
+            2
+        ],
+        "sublinear_tf": true
     },
-    "hyperparameters": {
-        "Logistic Regression": {
-            "max_iter": 1000,
-            "C": 1.0
-        },
-        "Multinomial Naive Bayes": {
-            "alpha": 1.0
-        },
-        "Linear SVM": {
-            "C": 1.0,
-            "dual": false,
-            "calibrated": true
-        }
+    "ngram_range": "(1, 2)",
+    "max_features": 30000,
+    "C": 5,
+    "class_weight": "None",
+    "calibration_method": "sigmoid (5-fold)",
+    "uncertainty_threshold": 0.5,
+    "random_state": 42,
+    "validation_metrics": {
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0
     },
     "test_metrics": {
-        "accuracy": 0.9644,
-        "precision": 0.9616,
-        "recall": 0.9598,
-        "f1_score": 0.9607
+        "accuracy": 0.9689,
+        "precision": 0.9654,
+        "recall": 0.9661,
+        "f1_score": 0.9657
+    },
+    "cross_validation": {
+        "mean_accuracy": 0.9707,
+        "std_accuracy": 0.0009,
+        "mean_precision": 0.9672,
+        "std_precision": 0.002,
+        "mean_recall": 0.9683,
+        "std_recall": 0.0032,
+        "mean_f1": 0.9677,
+        "std_f1": 0.0011
+    },
+    "calibration_data": [
+        {
+            "bin_start": 0.0,
+            "bin_end": 0.1,
+            "mean_predicted": 0.0086,
+            "mean_observed": 0.0,
+            "count": 5026
+        },
+        {
+            "bin_start": 0.1,
+            "bin_end": 0.2,
+            "mean_predicted": 0.1456,
+            "mean_observed": 0.0,
+            "count": 143
+        },
+        {
+            "bin_start": 0.2,
+            "bin_end": 0.3,
+            "mean_predicted": 0.2287,
+            "mean_observed": 0.0,
+            "count": 49
+        },
+        {
+            "bin_start": 0.3,
+            "bin_end": 0.4,
+            "mean_predicted": 0.3269,
+            "mean_observed": 0.0,
+            "count": 1
+        },
+        {
+            "bin_start": 0.7,
+            "bin_end": 0.8,
+            "mean_predicted": 0.7728,
+            "mean_observed": 1.0,
+            "count": 55
+        },
+        {
+            "bin_start": 0.8,
+            "bin_end": 0.9,
+            "mean_predicted": 0.8596,
+            "mean_observed": 1.0,
+            "count": 153
+        },
+        {
+            "bin_start": 0.9,
+            "bin_end": 1.0,
+            "mean_predicted": 0.9907,
+            "mean_observed": 1.0,
+            "count": 4125
+        }
+    ],
+    "uncertainty_analysis": {
+        "threshold": 0.5,
+        "test_certain_count": 9552,
+        "test_uncertain_count": 0,
+        "test_certain_accuracy": 0.9689
     }
 }

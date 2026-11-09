@@ -1,167 +1,167 @@
 {
-    "model_name": "Linear SVM",
+    "model_name": "Linear SVM (Calibrated)",
     "top_fake_features": [
         {
             "feature": "via",
-            "coefficient": 11.770307211356519
+            "coefficient": 15.173843581434815
         },
         {
             "feature": "read more",
-            "coefficient": 6.209864416918704
+            "coefficient": 7.993348503783347
         },
         {
             "feature": "featured image",
-            "coefficient": 4.818189146097728
+            "coefficient": 6.270050906902193
         },
         {
             "feature": "video",
-            "coefficient": 4.723647132525778
+            "coefficient": 6.0859787024926195
         },
         {
             "feature": "twitter com",
-            "coefficient": 4.563031520787115
+            "coefficient": 5.398139583530373
+        },
+        {
+            "feature": "via breitbart",
+            "coefficient": 5.371211030537131
         },
         {
             "feature": "image",
-            "coefficient": 3.8836314040176845
+            "coefficient": 4.9101461133626865
         },
         {
-            "feature": "october",
-            "coefficient": 3.672943254919636
-        },
-        {
-            "feature": "2016",
-            "coefficient": 3.607383320858337
+            "feature": "for entire",
+            "coefficient": 4.538855731597518
         },
         {
             "feature": "featured",
-            "coefficient": 3.432816921824961
-        },
-        {
-            "feature": "november",
-            "coefficient": 3.4027125889714265
+            "coefficient": 4.5011849518784715
         },
         {
             "feature": "breaking",
-            "coefficient": 3.248425290712393
+            "coefficient": 4.352815648096888
         },
         {
-            "feature": "hillary",
-            "coefficient": 3.178874751103114
+            "feature": "october",
+            "coefficient": 4.310874224890382
         },
         {
-            "feature": "co",
-            "coefficient": 3.136673419955533
+            "feature": "entire story",
+            "coefficient": 4.200342209921263
         },
         {
-            "feature": "getty",
-            "coefficient": 3.1170079691777346
-        },
-        {
-            "feature": "getty images",
-            "coefficient": 2.915241376549865
-        },
-        {
-            "feature": "the us",
-            "coefficient": 2.802244667107559
-        },
-        {
-            "feature": "november 2016",
-            "coefficient": 2.7932745396840084
-        },
-        {
-            "feature": "photo by",
-            "coefficient": 2.79122534372632
+            "feature": "2016",
+            "coefficient": 4.149012711492763
         },
         {
             "feature": "image via",
-            "coefficient": 2.7881377549856414
+            "coefficient": 4.147083236086836
         },
         {
-            "feature": "anti",
-            "coefficient": 2.567288992635569
+            "feature": "november",
+            "coefficient": 3.930888238338464
+        },
+        {
+            "feature": "getty",
+            "coefficient": 3.857358011294555
+        },
+        {
+            "feature": "co",
+            "coefficient": 3.6928164828527343
+        },
+        {
+            "feature": "getty images",
+            "coefficient": 3.689982897015392
+        },
+        {
+            "feature": "hillary",
+            "coefficient": 3.5378642168961347
+        },
+        {
+            "feature": "the us",
+            "coefficient": 3.4556785360272153
         }
     ],
     "top_genuine_features": [
         {
             "feature": "reuters",
-            "coefficient": -13.142901823877603
+            "coefficient": -16.422210921748235
         },
         {
             "feature": "breitbart",
-            "coefficient": -9.303999124567225
+            "coefficient": -11.433922989407398
         },
         {
             "feature": "follow",
-            "coefficient": -4.553521785560371
-        },
-        {
-            "feature": "on twitter",
-            "coefficient": -4.431760840969515
+            "coefficient": -5.438494632181926
         },
         {
             "feature": "washington reuters",
-            "coefficient": -3.893674976108045
+            "coefficient": -5.203521970175443
+        },
+        {
+            "feature": "on twitter",
+            "coefficient": -5.161927175314382
         },
         {
             "feature": "said",
-            "coefficient": -3.7360139877759098
+            "coefficient": -4.46615502046633
         },
         {
             "feature": "york times",
-            "coefficient": -3.636183642644526
+            "coefficient": -4.2650944583290284
         },
         {
             "feature": "president donald",
-            "coefficient": -3.4274235765911585
+            "coefficient": -4.229887382460161
         },
         {
             "feature": "twitter",
-            "coefficient": -3.2443293304589402
-        },
-        {
-            "feature": "2017",
-            "coefficient": -2.534816945394666
+            "coefficient": -3.7785350382259493
         },
         {
             "feature": "reuters the",
-            "coefficient": -2.4389474216639044
+            "coefficient": -3.3157378736016128
         },
         {
-            "feature": "on",
-            "coefficient": -2.2467333401024385
-        },
-        {
-            "feature": "follow him",
-            "coefficient": -2.2292845943403714
+            "feature": "breitbart the",
+            "coefficient": -2.936138110724959
         },
         {
             "feature": "said on",
-            "coefficient": -2.222410822191835
+            "coefficient": -2.9350919869367216
         },
         {
-            "feature": "in 2016",
-            "coefficient": -2.200575891592405
+            "feature": "2017",
+            "coefficient": -2.8729700710437536
         },
         {
             "feature": "the new",
-            "coefficient": -1.9867150410278278
+            "coefficient": -2.815023556856329
+        },
+        {
+            "feature": "jerome",
+            "coefficient": -2.769328602046643
+        },
+        {
+            "feature": "or email",
+            "coefficient": -2.7626236932251667
+        },
+        {
+            "feature": "in 2016",
+            "coefficient": -2.7057528319963944
         },
         {
             "feature": "on monday",
-            "coefficient": -1.9120686073615585
+            "coefficient": -2.678216459629277
         },
         {
-            "feature": "islamic state",
-            "coefficient": -1.8715308871689906
+            "feature": "factbox",
+            "coefficient": -2.560481325753607
         },
         {
-            "feature": "in november",
-            "coefficient": -1.86588008111268
-        },
-        {
-            "feature": "moscow reuters",
-            "coefficient": -1.7869192835752794
+            "feature": "on thursday",
+            "coefficient": -2.4635839025236597
         }
     ]
 }

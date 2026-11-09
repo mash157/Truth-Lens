@@ -1,12 +1,21 @@
 import re
+import html
+
 
 def clean_text(text: str) -> str:
     """
-    Cleans input text by lowercasing, stripping HTML tags, 
-    and normalizing spaces.
+    Cleans input text by:
+    - Handling non-string inputs
+    - Decoding HTML entities (&amp; -> &, &nbsp; -> space, etc.)
+    - Stripping HTML tags
+    - Normalizing whitespace
+    - Lowercasing
     """
     if not isinstance(text, str):
         return ""
+    
+    # Decode HTML entities
+    text = html.unescape(text)
     
     # Lowercase
     text = text.lower()
@@ -18,6 +27,7 @@ def clean_text(text: str) -> str:
     text = re.sub(r"\s+", " ", text).strip()
     
     return text
+
 
 def combine_headline_and_body(title: str, text: str) -> str:
     """

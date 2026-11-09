@@ -75,7 +75,7 @@ def inspect_and_prepare():
         )
     ]
 
-    # 5. Remove Duplicates
+    # 5. Remove Duplicates (pass 1, raw)
     # Check duplicates using title + text
     duplicate_count = df.duplicated(
         subset=['title', 'text']
@@ -100,6 +100,26 @@ def inspect_and_prepare():
         ),
         axis=1
     )
+
+    # Remove records that became empty after cleaning
+    empty_after_clean = int((df['combined_text'].str.strip() == "").sum())
+    df = df[df['combined_text'].str.strip() != ""]
+
+    # 5b. Remove near-duplicates (pass 2, normalized text key)
+    # Catches articles whose bodies are identical after lowercasing and
+    # whitespace normalization but differ in title or punctuation. This
+    # prevents the same underlying article from leaking across the
+    # train / validation / test boundaries.
+    df['_norm_text_key'] = (
+        df['text']
+        .fillna("")
+        .map(lambda s: " ".join(str(s).lower().split()))
+    )
+    duplicate_count += int(df.duplicated(subset=['_norm_text_key']).sum())
+    df = df.drop_duplicates(subset=['_norm_text_key'])
+    df = df.drop(columns=['_norm_text_key'])
+
+    final_clean_rows = len(df)
 
     # 7. Calculate Text Length Statistics
     # Use raw article text word counts
@@ -202,7 +222,8 @@ def inspect_and_prepare():
         "missing_values": {
             "title": int(missing_title),
             "text": int(missing_text),
-            "both_empty": int(empty_both)
+            "both_empty": int(empty_both),
+            "empty_after_cleaning": int(empty_after_clean)
         },
 
         "duplicate_records": int(duplicate_count),

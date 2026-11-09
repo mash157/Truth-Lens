@@ -1,6 +1,6 @@
 {
     "raw_record_count": 72134,
-    "clean_record_count": 63678,
+    "clean_record_count": 62702,
     "columns": [
         "Unnamed: 0",
         "title",
@@ -10,25 +10,26 @@
     "missing_values": {
         "title": 558,
         "text": 39,
-        "both_empty": 0
+        "both_empty": 0,
+        "empty_after_cleaning": 0
     },
-    "duplicate_records": 8456,
+    "duplicate_records": 9432,
     "class_distribution": {
-        "genuine": 34791,
-        "fake": 28887
+        "genuine": 34618,
+        "fake": 28084
     },
     "class_percentages": {
-        "genuine": 54.64,
-        "fake": 45.36
+        "genuine": 55.21,
+        "fake": 44.79
     },
     "text_length": {
         "min_words": 0,
         "max_words": 24234,
-        "avg_words": 542.31
+        "avg_words": 549.05
     },
     "splits": {
-        "train": 44574,
-        "validation": 9552,
-        "test": 9552
+        "train": 43890,
+        "validation": 9406,
+        "test": 9406
     }
 }

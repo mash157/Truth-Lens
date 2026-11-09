@@ -1,0 +1,10 @@
+{
+    "mean_accuracy": 0.9707,
+    "std_accuracy": 0.0009,
+    "mean_precision": 0.9672,
+    "std_precision": 0.002,
+    "mean_recall": 0.9683,
+    "std_recall": 0.0032,
+    "mean_f1": 0.9677,
+    "std_f1": 0.0011
+}

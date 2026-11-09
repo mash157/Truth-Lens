@@ -1,23 +1,132 @@
 [
     {
-        "Model": "Logistic Regression",
-        "Accuracy": 0.958,
-        "Precision": 0.9522,
-        "Recall": 0.9555,
-        "F1_Score": 0.9538
+        "name": "Baseline 10k (1,2)",
+        "val_accuracy": 0.9675,
+        "val_precision": 0.9642,
+        "val_recall": 0.9642,
+        "val_f1": 0.9642,
+        "test_accuracy": 0.9649,
+        "test_precision": 0.9608,
+        "test_recall": 0.9619,
+        "test_f1": 0.9614
     },
     {
-        "Model": "Multinomial Naive Bayes",
-        "Accuracy": 0.8592,
-        "Precision": 0.8239,
-        "Recall": 0.877,
-        "F1_Score": 0.8496
+        "name": "Word 20k (1,2)",
+        "val_accuracy": 0.9697,
+        "val_precision": 0.9663,
+        "val_recall": 0.967,
+        "val_f1": 0.9667
     },
     {
-        "Model": "Linear SVM",
-        "Accuracy": 0.9672,
-        "Precision": 0.9651,
-        "Recall": 0.9626,
-        "F1_Score": 0.9638
+        "name": "Word 30k (1,2) df3",
+        "val_accuracy": 0.9705,
+        "val_precision": 0.9675,
+        "val_recall": 0.9675,
+        "val_f1": 0.9675
+    },
+    {
+        "name": "Char (3,5) 30k",
+        "val_accuracy": 0.9864,
+        "val_precision": 0.9819,
+        "val_recall": 0.9882,
+        "val_f1": 0.985
+    },
+    {
+        "name": "Combined Word+Char",
+        "val_accuracy": 0.9864,
+        "val_precision": 0.9823,
+        "val_recall": 0.9878,
+        "val_f1": 0.985
+    },
+    {
+        "name": "BestWord+LogisticRegression",
+        "val_accuracy": 0.9641,
+        "val_precision": 0.9588,
+        "val_recall": 0.9622,
+        "val_f1": 0.9605
+    },
+    {
+        "name": "SVM C=0.1 cw=None",
+        "val_accuracy": 0.9599,
+        "val_precision": 0.953,
+        "val_recall": 0.9589,
+        "val_f1": 0.9559
+    },
+    {
+        "name": "SVM C=0.5 cw=None",
+        "val_accuracy": 0.9702,
+        "val_precision": 0.967,
+        "val_recall": 0.9672,
+        "val_f1": 0.9671
+    },
+    {
+        "name": "SVM C=1 cw=None",
+        "val_accuracy": 0.9705,
+        "val_precision": 0.9675,
+        "val_recall": 0.9675,
+        "val_f1": 0.9675
+    },
+    {
+        "name": "SVM C=2 cw=None",
+        "val_accuracy": 0.9715,
+        "val_precision": 0.968,
+        "val_recall": 0.9693,
+        "val_f1": 0.9686
+    },
+    {
+        "name": "SVM C=5 cw=None",
+        "val_accuracy": 0.9723,
+        "val_precision": 0.9697,
+        "val_recall": 0.9691,
+        "val_f1": 0.9694
+    },
+    {
+        "name": "SVM C=10 cw=None",
+        "val_accuracy": 0.9712,
+        "val_precision": 0.9682,
+        "val_recall": 0.9684,
+        "val_f1": 0.9683
+    },
+    {
+        "name": "SVM C=0.1 cw=balanced",
+        "val_accuracy": 0.9593,
+        "val_precision": 0.9515,
+        "val_recall": 0.9592,
+        "val_f1": 0.9553
+    },
+    {
+        "name": "SVM C=0.5 cw=balanced",
+        "val_accuracy": 0.9701,
+        "val_precision": 0.9668,
+        "val_recall": 0.9672,
+        "val_f1": 0.967
+    },
+    {
+        "name": "SVM C=1 cw=balanced",
+        "val_accuracy": 0.9708,
+        "val_precision": 0.9675,
+        "val_recall": 0.9682,
+        "val_f1": 0.9678
+    },
+    {
+        "name": "SVM C=2 cw=balanced",
+        "val_accuracy": 0.9713,
+        "val_precision": 0.9677,
+        "val_recall": 0.9691,
+        "val_f1": 0.9684
+    },
+    {
+        "name": "SVM C=5 cw=balanced",
+        "val_accuracy": 0.9722,
+        "val_precision": 0.9695,
+        "val_recall": 0.9691,
+        "val_f1": 0.9693
+    },
+    {
+        "name": "SVM C=10 cw=balanced",
+        "val_accuracy": 0.9711,
+        "val_precision": 0.9679,
+        "val_recall": 0.9684,
+        "val_f1": 0.9682
     }
 ]

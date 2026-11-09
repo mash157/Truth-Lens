@@ -16,6 +16,7 @@ class ModelArtifacts:
         self.model = None
         self.vectorizer = None
         self.metadata = None
+        self.feature_info = None
         self._loaded = False
         self._error = None
 
@@ -52,6 +53,18 @@ class ModelArtifacts:
                     self.metadata = json.load(f)
             else:
                 self.metadata = {"best_model_name": "Unknown Model"}
+            
+            # Load feature info if available
+            feature_info_path = MODEL_PATH.parent / "feature_info.joblib"
+            if os.path.exists(feature_info_path):
+                self.feature_info = joblib.load(feature_info_path)
+            else:
+                self.feature_info = None
+            
+            # Determine vectorizer type for explainer
+            self.is_combined_vectorizer = False
+            if hasattr(self.vectorizer, 'word_vectorizer') and hasattr(self.vectorizer, 'char_vectorizer'):
+                self.is_combined_vectorizer = True
                 
             self._loaded = True
             self._error = None

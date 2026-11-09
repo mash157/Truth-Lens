@@ -1,4 +1,19 @@
-Model,Accuracy,Precision,Recall,F1_Score
-Logistic Regression,0.958,0.9522,0.9555,0.9538
-Multinomial Naive Bayes,0.8592,0.8239,0.877,0.8496
-Linear SVM,0.9672,0.9651,0.9626,0.9638
+name,val_accuracy,val_precision,val_recall,val_f1,test_accuracy,test_precision,test_recall,test_f1
+"Baseline 10k (1,2)",0.9675,0.9642,0.9642,0.9642,0.9649,0.9608,0.9619,0.9614
+"Word 20k (1,2)",0.9697,0.9663,0.967,0.9667,,,,
+"Word 30k (1,2) df3",0.9705,0.9675,0.9675,0.9675,,,,
+"Char (3,5) 30k",0.9864,0.9819,0.9882,0.985,,,,
+Combined Word+Char,0.9864,0.9823,0.9878,0.985,,,,
+BestWord+LogisticRegression,0.9641,0.9588,0.9622,0.9605,,,,
+SVM C=0.1 cw=None,0.9599,0.953,0.9589,0.9559,,,,
+SVM C=0.5 cw=None,0.9702,0.967,0.9672,0.9671,,,,
+SVM C=1 cw=None,0.9705,0.9675,0.9675,0.9675,,,,
+SVM C=2 cw=None,0.9715,0.968,0.9693,0.9686,,,,
+SVM C=5 cw=None,0.9723,0.9697,0.9691,0.9694,,,,
+SVM C=10 cw=None,0.9712,0.9682,0.9684,0.9683,,,,
+SVM C=0.1 cw=balanced,0.9593,0.9515,0.9592,0.9553,,,,
+SVM C=0.5 cw=balanced,0.9701,0.9668,0.9672,0.967,,,,
+SVM C=1 cw=balanced,0.9708,0.9675,0.9682,0.9678,,,,
+SVM C=2 cw=balanced,0.9713,0.9677,0.9691,0.9684,,,,
+SVM C=5 cw=balanced,0.9722,0.9695,0.9691,0.9693,,,,
+SVM C=10 cw=balanced,0.9711,0.9679,0.9684,0.9682,,,,

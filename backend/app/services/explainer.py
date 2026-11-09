@@ -5,7 +5,8 @@ class ExplainerService:
     @staticmethod
     def explain(combined_text: str, pred_class_label: str, max_features: int = 10):
         """
-        Extracts word-level feature contributions for the prediction of a given text.
+        Extracts feature contributions for the prediction of a given text.
+        Supports both standard TfidfVectorizer and CombinedVectorizer (word+char).
         """
         # Ensure model and vectorizer are loaded
         if not artifacts.is_loaded:

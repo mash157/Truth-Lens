@@ -12,13 +12,21 @@ class FeatureContribution(BaseModel):
     model_coef: float = Field(..., description="The model's coefficient/log-odds weight for this word")
 
 class NewsAnalysisResponse(BaseModel):
-    prediction: str = Field(..., description="Classification outcome: LIKELY_FAKE or LIKELY_GENUINE")
-    confidence: float = Field(..., description="Confidence percentage [0-1] for the prediction")
+    prediction: str = Field(..., description="Classification outcome: LIKELY_FAKE, LIKELY_GENUINE, or UNCERTAIN")
+    confidence: float = Field(..., description="Calibrated confidence percentage [0-1] for the prediction")
     model_name: str = Field(..., description="Name of the model used for classification")
     supporting_features: List[FeatureContribution] = Field(..., description="Words supporting the prediction")
     opposing_features: List[FeatureContribution] = Field(..., description="Words opposing the prediction")
     word_count: int = Field(..., description="Total word count of the processed input text")
     character_count: int = Field(..., description="Total character count of the processed input text")
+    uncertainty: Optional[bool] = Field(
+        default=False,
+        description="Whether the model lacks sufficient confidence for a definitive classification"
+    )
+    max_probability: Optional[float] = Field(
+        default=None,
+        description="Maximum class probability (higher = more confident)"
+    )
     disclaimer: str = Field(
         default="TruthLens provides a machine-learning-based classification based on patterns learned from labelled training data. It does not independently verify factual claims. Predictions may be incorrect, so important information should always be verified using reliable independent sources.",
         description="Standard academic research disclaimer"

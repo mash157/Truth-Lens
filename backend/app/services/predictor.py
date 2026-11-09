@@ -30,6 +30,7 @@ class PredictorService:
         model = artifacts.model
         vectorizer = artifacts.vectorizer
         model_name = artifacts.metadata.get("best_model_name", "Classification Model")
+        uncertainty_threshold = artifacts.metadata.get("uncertainty_threshold", 0.55)
         
         # 3. Vectorize text
         vec_text = vectorizer.transform([combined_text])
@@ -38,21 +39,31 @@ class PredictorService:
         preds = model.predict(vec_text)
         pred_class = int(preds[0])
         
-        # 5. Determine Confidence
+        # 5. Determine calibrated probabilities and confidence
         if hasattr(model, "predict_proba"):
             probs = model.predict_proba(vec_text)[0]
             confidence = float(probs[pred_class])
+            max_prob = float(max(probs))
         else:
-            # Calibrated SVM isn't loaded or doesn't support predict_proba; fallback decision boundary scaling
+            # Fallback sigmoid calibration
             dec = model.decision_function(vec_text)[0]
-            prob_1 = 1 / (1 + np.exp(-dec)) # Sigmoid calibration
+            prob_1 = 1 / (1 + np.exp(-dec))
             confidence = float(prob_1 if pred_class == 1 else 1 - prob_1)
-            
-        prediction_label = "LIKELY_FAKE" if pred_class == 1 else "LIKELY_GENUINE"
+            max_prob = confidence
+        
+        # 6. Uncertainty detection
+        is_uncertain = max_prob < uncertainty_threshold
+        
+        if is_uncertain:
+            prediction_label = "UNCERTAIN"
+        else:
+            prediction_label = "LIKELY_FAKE" if pred_class == 1 else "LIKELY_GENUINE"
         
         return {
             "prediction": prediction_label,
             "confidence": confidence,
             "model_name": model_name,
-            "combined_text": combined_text
+            "combined_text": combined_text,
+            "uncertainty": is_uncertain,
+            "max_probability": max_prob
         }

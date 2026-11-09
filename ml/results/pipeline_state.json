@@ -1,0 +1,51 @@
+{
+  "experiments": [
+    {
+      "name": "Baseline 10k (1,2)",
+      "val_accuracy": 0.9682,
+      "val_precision": 0.9624,
+      "val_recall": 0.9668,
+      "val_f1": 0.9646,
+      "time_s": 110.2,
+      "test_accuracy": 0.9674,
+      "test_precision": 0.9632,
+      "test_recall": 0.9639,
+      "test_f1": 0.9636
+    },
+    {
+      "name": "Word 20k (1,2)",
+      "val_accuracy": 0.9697,
+      "val_precision": 0.9634,
+      "val_recall": 0.9691,
+      "val_f1": 0.9663,
+      "time_s": 108.8
+    },
+    {
+      "name": "Word 30k (1,2) df3",
+      "val_accuracy": 0.9706,
+      "val_precision": 0.9655,
+      "val_recall": 0.9689,
+      "val_f1": 0.9672,
+      "time_s": 112.3
+    },
+    {
+      "name": "Word 20k (1,3)",
+      "val_accuracy": 0.9692,
+      "val_precision": 0.9634,
+      "val_recall": 0.968,
+      "val_f1": 0.9657,
+      "time_s": 246.7
+    }
+  ],
+  "best_word_f1": 0.9672,
+  "best_word_cfg": {
+    "max_features": 30000,
+    "min_df": 3,
+    "max_df": 0.9,
+    "ngram_range": [
+      1,
+      2
+    ],
+    "sublinear_tf": true
+  }
+}

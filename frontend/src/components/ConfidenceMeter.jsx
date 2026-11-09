@@ -3,7 +3,10 @@ import { formatPercentage } from '../utils/formatters';
 export default function ConfidenceMeter({ confidence, prediction }) {
   const percent = (confidence * 100).toFixed(1);
   const isGenuine = prediction === 'LIKELY_GENUINE';
-  const color = isGenuine ? 'var(--accent-genuine)' : 'var(--accent-fake)';
+  const isUncertain = prediction === 'UNCERTAIN';
+  
+  const color = isUncertain ? 'var(--accent-ambiguous)' : (isGenuine ? 'var(--accent-genuine)' : 'var(--accent-fake)');
+  const gradientEnd = isUncertain ? '#f59e0b' : (isGenuine ? '#2dd4bf' : '#fb7185');
 
   return (
     <div style={{ marginTop: 16 }}>
@@ -37,7 +40,7 @@ export default function ConfidenceMeter({ confidence, prediction }) {
         <div style={{
           height: '100%',
           width: `${percent}%`,
-          background: `linear-gradient(90deg, ${color}, ${isGenuine ? '#2dd4bf' : '#fb7185'})`,
+          background: `linear-gradient(90deg, ${color}, ${gradientEnd})`,
           borderRadius: 5,
           transition: 'width 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
         }} />
@@ -49,8 +52,10 @@ export default function ConfidenceMeter({ confidence, prediction }) {
         marginTop: 8,
         fontStyle: 'italic',
       }}>
-        Model confidence represents how strongly the classifier supports its predicted class.
-        It does not guarantee factual correctness.
+        {isUncertain
+          ? 'The model lacks sufficient confidence for a definitive classification. UNCERTAIN does NOT mean the article is fake — it means more verification is recommended.'
+          : 'Model confidence represents how strongly the classifier supports its predicted class. It does not guarantee factual correctness.'
+        }
       </p>
     </div>
   );
