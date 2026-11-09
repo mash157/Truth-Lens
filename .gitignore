@@ -28,3 +28,18 @@ frontend/dist/
 *.log
 
 dataset/raw/WELFake_Dataset.csv
+# Browser testing profiles and caches
+.visual-check/
+**/.visual-check/
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Dependencies and build output
+node_modules/
+dist/
+venv/
+.venv/
+__pycache__/
